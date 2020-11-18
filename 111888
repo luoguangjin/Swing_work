@@ -1,0 +1,19 @@
+package com.jackluo;
+
+import javax.swing.*;
+
+public class App {
+    private JPanel panel;
+
+    public void fun(){
+        JFrame frame = new JFrame("App");
+        frame.setContentPane(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(300,300,400,500);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new App().fun();
+    }
+}

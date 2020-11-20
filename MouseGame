@@ -1,0 +1,51 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class Game {
+    private JPanel panel = new JPanel();
+    private JLabel numtxt = new JLabel();
+     JLabel num = new JLabel();
+     JLabel mouseimg = new JLabel();
+     JLabel mousebg = new JLabel();
+    int i = 0;
+
+    public Game() {
+        mouseimg.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mouseimg.setBounds((int)(Math.random()*10%10*50),(int)(Math.random()*10%10*50),100,100);
+                i++;
+
+                num.setText("you are num:"+String.valueOf(+i));
+            }
+        });
+    }
+
+    public void fun(){
+        panel.setLayout(null);
+        java.net.URL imgURL=Game.class.getResource("dgmouse.gif");
+        mouseimg.setIcon(new ImageIcon(imgURL));
+        java.net.URL imgURLbg = Game.class.getResource("mousebg.jpg");
+        mousebg.setIcon(new ImageIcon(imgURLbg));
+        mousebg.setBounds(0,0,1024,720);
+        mouseimg.setBounds(200,300,75,75);
+        num.setBounds(320,0,500,75);
+        num.setFont(new Font("ARIAL",Font.BOLD,40));
+        num.setForeground(Color.WHITE);
+        panel.add(num);
+        panel.add(mouseimg);
+        panel.add(mousebg);
+        JFrame frame = new JFrame("今晚地主打老鼠");
+        frame.setBounds(100,100,1024,700);
+        frame.setContentPane(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new Game().fun();
+    }
+}

@@ -1,0 +1,53 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class App {
+    JPanel myPanel=new JPanel();
+    JLabel label_background=new JLabel();
+    JLabel jLabel_score = new JLabel();
+    int score,score1,score2,score3;
+    int x,y;
+    //构造方法
+    public App() {
+        myPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                
+                if (e.getX()<90 && e.getY()<500){
+                    score1=1;
+                    score = score1+score2+score3;
+                    jLabel_score.setText(String.valueOf(score));
+                }
+                System.out.println(e.getX()+","+e.getY());
+            }
+        });
+    }
+    //显示窗体方法
+    void go(){
+        jLabel_score.setBounds(50,50,200,50);
+        jLabel_score.setFont(new Font("ARIAL",Font.BOLD,20));
+        jLabel_score.setForeground(Color.WHITE);
+        jLabel_score.setText("score:0");
+        myPanel.add(jLabel_score);
+        java.net.URL imgURL = App.class.getResource("img/background.png");
+        label_background.setIcon(new ImageIcon(imgURL));
+        label_background.setBounds(0,0,1000,800);
+        myPanel.add(label_background);
+        JFrame frame = new JFrame("大家来找茬");
+        myPanel.setLayout(null);
+        myPanel.add(label_background);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,1000,800);
+        //frame.pack();
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new App().go();
+    }
+}

@@ -1,0 +1,64 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class App {
+    JPanel myPanel=new JPanel();
+    JLabel label_background=new JLabel();
+    JLabel jLabel_score = new JLabel();
+    int score,score1,score2,score3,score4;
+    int x,y;
+    //构造方法
+    public App() {
+        myPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                if(e.getX()>10&&e.getX()<90&&e.getY()>450&&e.getY()<530){
+
+                    score1=1;
+                }
+                if(e.getX()>200&&e.getX()<270&&e.getY()>100&&e.getY()<130){
+
+                    score2=1;
+                }
+                if(e.getX()>335&&e.getX()<380&&e.getY()>160&&e.getY()<220){
+                    score3=1;
+                }
+                if(e.getX()>380&&e.getX()<430&&e.getY()>220&&e.getY()<320){
+                    score4=1;
+                }
+                score=score1+score2+score3+score4;
+                jLabel_score.setText("score:"+score);
+                System.out.println(e.getX()+","+e.getY());
+            }
+        });
+    }
+    //显示窗体方法
+    void go(){
+        jLabel_score.setBounds(50,50,200,50);
+        jLabel_score.setFont(new Font("ARIAL",Font.BOLD,20));
+        jLabel_score.setForeground(Color.WHITE);
+        jLabel_score.setText("score:0");
+        myPanel.add(jLabel_score);
+        java.net.URL imgURL = App.class.getResource("img/background.png");
+        label_background.setIcon(new ImageIcon(imgURL));
+        label_background.setBounds(0,0,1000,800);
+        myPanel.add(label_background);
+        JFrame frame = new JFrame("大家来找茬");
+        myPanel.setLayout(null);
+        myPanel.add(label_background);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,1000,800);
+        //frame.pack();
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new App().go();
+    }
+}

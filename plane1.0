@@ -1,0 +1,62 @@
+import javafx.scene.control.Cell;
+
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class App {
+    JPanel myPanel=new JPanel();
+    JLabel label_txt=new JLabel();
+    JLabel label_back = new JLabel();
+    JLabel label_plane = new JLabel();
+    int dd = 64;
+    //构造方法
+    public App() {
+        myPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+
+                if(e.getKeyCode() == e.VK_UP){
+                    label_plane.setBounds(label_plane.getX(),label_plane.getY()-dd,dd,dd);
+                }
+                if(e.getKeyCode() == e.VK_DOWN){
+                    label_plane.setBounds(label_plane.getX(),label_plane.getY()+dd,dd,dd);
+                }
+                if(e.getKeyCode() == e.VK_LEFT){
+                    label_plane.setBounds(label_plane.getX()-dd,label_plane.getY(),dd,dd);
+                }
+                if(e.getKeyCode() == e.VK_RIGHT){
+                    label_plane.setBounds(label_plane.getX()+dd,label_plane.getY(),dd,dd);
+                }
+            }
+        });
+    }
+    //显示窗体方法
+    void go(){
+        label_txt.setText("这是一个Label标签。");
+        label_txt.setBounds(0,0,200,30);
+        java.net.URL imgURLplane = App.class.getResource("img/plane0.png");
+        label_plane.setIcon(new ImageIcon(imgURLplane));
+        label_plane.setBounds(256,600,64,64);
+        java.net.URL imgURLbg = App.class.getResource("img/xingkong.jpg");
+        label_back.setIcon(new ImageIcon(imgURLbg));
+        label_back.setBounds(0,0,512,720);
+
+        myPanel.add(label_txt);
+        myPanel.add(label_plane);
+        myPanel.add(label_back);
+        myPanel.setFocusable(true);
+        myPanel.setLayout(null);
+        JFrame frame = new JFrame("一个小程序");
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,512,720);
+
+        //frame.pack();
+        frame.setVisible(true);
+    }
+    public static void main(String[] args) {
+        new App().go();
+    }
+}

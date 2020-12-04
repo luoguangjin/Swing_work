@@ -1,0 +1,146 @@
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class App {
+    JPanel myPanel=new JPanel();
+    JLabel label_background=new JLabel();
+    JLabel label_frog=new JLabel();
+    JLabel label_frog2=new JLabel();
+    JLabel label_frog3=new JLabel();
+    JLabel label_score=new JLabel();
+    JTextArea textArea_Input=new JTextArea();
+    int a=0;
+    int[] a1 = {400,400,400};
+    int[] b1 = {256,256,256};
+    int[] a2 = {256,256,256};
+    int[] b2 = {100,100,100};
+    int[] a3 = {720,720,720};
+    int[] b3 = {30,30,30};
+    int frognum;
+    int  score=0,score1=0,score2=0,score3=0;
+    //构造方法
+    public App() {
+        myPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                textArea_Input.append(String.valueOf(e.getKeyChar()));
+                System.out.println(textArea_Input.getText());
+
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    textArea_Input.setText("");
+                }
+
+                if (a==0&&textArea_Input.getText().equals("hello")){
+                    label_frog.setBounds(400,256,128,128);
+                    a=1;
+                    textArea_Input.setText("");
+                }
+                if (a==1&&textArea_Input.getText().replace("\n","").equals("world")){
+                    label_frog.setBounds(256,100,128,128);
+                    textArea_Input.setText("");
+                    a=2;
+                }
+                if (a==2&&textArea_Input.getText().replace("\n","").equals("hi")){
+                    label_frog.setBounds(720,30,128,128);
+                    textArea_Input.setText("");
+                    a=3;
+                    label_score.setText("得分：1");
+
+                }
+//                第二只
+                if (a==3&&textArea_Input.getText().equals("hello")){
+                    label_frog2.setBounds(400,256,128,128);
+                    a=4;
+                    textArea_Input.setText("");
+                }
+                if (a==4&&textArea_Input.getText().replace("\n","").equals("world")){
+                    label_frog2.setBounds(256,100,128,128);
+                    textArea_Input.setText("");
+                    a=5;
+                }
+                if (a==5&&textArea_Input.getText().replace("\n","").equals("hi")){
+                    label_frog2.setBounds(650,30,128,128);
+                    textArea_Input.setText("");
+                    a=6;
+                    label_score.setText("得分：2");
+
+                }
+//                第3只
+                if (a==6&&textArea_Input.getText().equals("hello")){
+                    label_frog3.setBounds(400,256,128,128);
+                    a=7;
+                    textArea_Input.setText("");
+                }
+                if (a==7&&textArea_Input.getText().replace("\n","").equals("world")){
+                    label_frog3.setBounds(256,100,128,128);
+                    textArea_Input.setText("");
+                    a=8;
+                }
+                if (a==8&&textArea_Input.getText().replace("\n","").equals("hi")){
+                    label_frog3.setBounds(550,30,128,128);
+                    textArea_Input.setText("");
+                    a=9;
+                    label_score.setText("得分：3");
+                }
+
+
+            }
+        });
+
+
+
+    }
+    //显示窗体方法
+    void go(){
+        textArea_Input.setText("");
+
+        textArea_Input.setBounds(0,0,300,50);
+        myPanel.add(textArea_Input);
+
+
+        java.net.URL imgURLfrog = App.class.getResource("img/frog.png");
+        label_frog.setIcon(new ImageIcon(imgURLfrog));
+        label_frog.setBounds(90,400,128,128);
+        java.net.URL imgURLfrog2 = App.class.getResource("img/frog2.png");
+        label_frog2.setIcon(new ImageIcon(imgURLfrog2));
+        label_frog2.setBounds(60,400,128,128);
+        java.net.URL imgURLfrog3 = App.class.getResource("img/frog3.png");
+        label_frog3.setIcon(new ImageIcon(imgURLfrog3));
+        label_frog3.setBounds(30,400,128,128);
+
+
+        java.net.URL imgURL = App.class.getResource("img/background.png");
+        label_background.setIcon(new ImageIcon(imgURL));
+        label_background.setBounds(0,0,1024,600);
+
+
+
+
+
+        label_score.setText("得分：0");
+        label_score.setBounds(400,0,200,50);
+        myPanel.add(label_score);
+        myPanel.add(label_frog);
+        myPanel.add(label_frog2);
+        myPanel.add(label_frog3);
+        myPanel.add(label_background);
+
+
+
+
+        //
+        JFrame frame = new JFrame("TestGUI");
+        myPanel.setLayout(null);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,1024,600);
+        //frame.pack();
+        frame.setVisible(true);
+        myPanel.setFocusable(true);//键盘监听必须加panel面板的焦点获取才可以
+    }
+    public static void main(String[] args) {
+        new App().go();
+    }
+}

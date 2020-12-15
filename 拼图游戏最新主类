@@ -1,0 +1,112 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Game {
+    JPanel myPanel=new JPanel();
+    JLabel label_txt=new JLabel();
+    JLabel label_foreground=new JLabel();
+    List<JLabel> label_list=new ArrayList<>();
+
+    int array2d[][]={
+            {1,2,3},
+            {4,5,6},
+            {7,8,9},
+            {10,0,11}
+    };
+    int cell=128;
+
+//    定义方法判断游戏通关
+    public void fun(int array2d[][]){
+        int g=0;
+        for (int K = 0; K < array2d.length; K++) {
+            for (int L = 0; L < array2d[0].length; L++) {
+                if(array2d[K][L]==((K*3)+L)+1){
+                    g++;
+                }
+            }
+        }
+        if(g==11){
+            JOptionPane.showMessageDialog(null,"恭喜你游戏通关");
+        }
+    }
+
+    //构造方法Game()
+    public Game() {
+        showMyGame();
+        myPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);//敲击任意键。
+                if(e.getKeyCode()==KeyEvent.VK_UP){
+                    new Zero().goUp(array2d);
+                    showMyGame();
+                    fun(array2d);
+                    label_txt.setText("向上移动了一步");
+                }
+                if(e.getKeyCode()==KeyEvent.VK_DOWN){
+                    new Zero().goDown(array2d);
+                    showMyGame();
+                    fun(array2d);
+                    label_txt.setText("向下移动了一步");
+                }
+                if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+                    new Zero().goRight(array2d);
+                    showMyGame();
+                    fun(array2d);
+                    label_txt.setText("向左移动了一步");
+                }
+                if(e.getKeyCode()==KeyEvent.VK_LEFT){
+                    new Zero().goLeft(array2d);
+                    showMyGame();
+                    fun(array2d);
+                    label_txt.setText("向右移动了一步");
+                }
+            }
+        });
+    }
+    //    为了使程序结构清晰，设置一个方法来显示所有组件showMyGame()
+    void showMyGame(){
+        //移动矩阵
+        for (int row = 0; row < array2d.length; row++) {
+            for (int column = 0; column < array2d[0].length; column++) {
+                label_list.add(new JLabel());
+                java.net.URL imgURL = Game.class.getResource("img/nezha_"+String.valueOf(array2d[row][column])+".png");
+                label_list.get(row*3+column).setIcon(new ImageIcon(imgURL));
+                label_list.get(row*3+column).setBounds(column*cell,row*cell,cell,cell);
+                myPanel.add(label_list.get(row*3+column));
+                myPanel.repaint();
+            }
+        }
+    }
+
+    //显示窗体方法go()
+    void go(){
+        //网格
+        java.net.URL imgURL999 = Game.class.getResource("img/foreground.png");
+        label_foreground.setIcon(new ImageIcon(imgURL999));
+        label_foreground.setBounds(0,0,384,512);
+        myPanel.add(label_foreground);
+
+        label_txt.setText("摁上下左右键开始移动吧");
+        label_txt.setForeground(Color.white);
+        label_txt.setBounds(0,0,200,30);
+        myPanel.add(label_txt);
+
+        myPanel.setLayout(null);
+        JFrame frame = new JFrame("哪吒拼图");
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(400,150,384,530);
+        //frame.pack();
+        frame.setVisible(true);
+        frame.setResizable(false);//禁止用户修改大小
+        myPanel.setFocusable(true);//键盘监听必须加panel面板的焦点获取才可以
+    }
+    public static void main(String[] args) {
+        new Game().go();
+    }
+}
